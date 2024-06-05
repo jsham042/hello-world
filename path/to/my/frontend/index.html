@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World from Backend</title>
+    <script>
+        async function fetchHelloWorld() {
+            try {
+                // Assuming the backend endpoint is /api/hello
+                const response = await fetch('/api/hello');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.text();
+                document.getElementById('hello-world-message').textContent = data;
+            } catch (error) {
+                console.error('Failed to fetch Hello World message:', error);
+                document.getElementById('hello-world-message').textContent = 'Failed to load message';
+            }
+        }
+
+        window.onload = fetchHelloWorld;
+    </script>
+</head>
+<body>
+    <h1 id="hello-world-message">Loading...</h1>
+</body>
+</html>
