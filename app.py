@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import logging
+from logging.handlers import RotatingFileHandler
+import json
 
 app = Flask(__name__)
 
@@ -10,6 +13,26 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["5 per minute"],  # Adjust the rate limit as needed
 )
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("pingLogger")
+handler = RotatingFileHandler("ping.log", maxBytes=10000, backupCount=1)
+logger.addHandler(handler)
+
+
+def log_request(req, res):
+    logger.info(
+        json.dumps(
+            {
+                "timestamp": req.date,
+                "method": req.method,
+                "ip": req.remote_addr,
+                "path": req.path,
+                "status_code": res.status_code,
+            }
+        )
+    )
 
 
 def authenticate():
@@ -24,6 +47,13 @@ def before_request_func():
         response = authenticate()
         if response:
             return response
+
+
+@app.after_request
+def after_request_func(response):
+    if request.path == "/ping":
+        log_request(request, response)
+    return response
 
 
 @app.route("/")
