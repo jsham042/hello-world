@@ -1,6 +1,13 @@
-from flask import Flask
+from flask import Flask, jsonify
+
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    return "Hello, World!"
+
+
+@app.route("/api/ping", methods=["GET"])
+def ping():
+    return jsonify(status=True, message="Service operational"), 200
