@@ -18,12 +18,18 @@ def ping():
     logging.info(f"Received request at /ping from {request.remote_addr}")
 
     # Perform an internal check
-    service_status = True  # This is a simple simulation of an internal check
+    try:
+        # Simulated internal check (replace with actual checks e.g., database connectivity, server load)
+        # Example: raise Exception("Simulated failure") to simulate an unhealthy service
+        service_status = True  # Assume the service is healthy
 
-    if service_status:
-        response = jsonify({"message": "Service is operational"}), 200
-    else:
-        response = jsonify({"message": "Service is not operational"}), 503
+        if service_status:
+            response = jsonify({"status": "healthy"}), 200
+        else:
+            response = jsonify({"status": "unhealthy"}), 500
+    except Exception as e:
+        logging.error(f"Internal check failed: {str(e)}")
+        response = jsonify({"status": "unhealthy"}), 500
 
     # Log the response details
     logging.info(f"Response status: {response[1]}, message: {response[0].json}")
