@@ -1,7 +1,12 @@
 from flask import Flask, jsonify, request
 import datetime
+import time
+import logging
 
 app = Flask(__name__)
+
+# Set up basic configuration for logging
+logging.basicConfig(level=logging.INFO)
 
 
 @app.before_request
@@ -28,4 +33,20 @@ def hello_world():
 
 @app.route("/api/ping", methods=["GET"])
 def health_check():
-    return jsonify({"status": "ok"}), 200
+    # Start time measurement
+    start_time = time.perf_counter()
+
+    # Simulate response
+    response = jsonify({"status": "ok"}), 200
+
+    # End time measurement
+    end_time = time.perf_counter()
+    duration = (end_time - start_time) * 1000  # Convert to milliseconds
+
+    # Log the duration and check if it meets the performance requirement
+    if duration > 300:
+        app.logger.warning(f"Health check exceeded 300ms: {duration}ms")
+    else:
+        app.logger.info(f"Health check within acceptable duration: {duration}ms")
+
+    return response
