@@ -10,7 +10,15 @@ def hello_world():
 
 @app.route("/api/ping", methods=["GET"])
 def ping():
-    return jsonify(status=True, message="Service operational"), 200
+    health_status = check_system_health()
+    all_good = all(component["status"] for component in health_status.values())
+    if all_good:
+        return jsonify(health_status), 200
+    else:
+        failed_components = {
+            key: value for key, value in health_status.items() if not value["status"]
+        }
+        return jsonify(failed_components), 500
 
 
 def check_system_health():
