@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import socket
 
 app = Flask(__name__)
 
@@ -11,8 +12,8 @@ def hello_world():
 @app.route("/api/ping", methods=["GET"])
 def ping():
     try:
-        # Simulate a health check
-        # In a real-world scenario, you would check database connections, external services, etc.
+        # Check if the host can be resolved to an IP, simulating a basic connectivity check
+        socket.gethostbyname("localhost")
         health_status = "healthy"
         return jsonify({"status": health_status}), 200
     except Exception:
