@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import datetime
 
 app = Flask(__name__)
 
@@ -10,4 +11,9 @@ def hello_world():
 
 @app.route("/api/ping", methods=["GET"])
 def health_check():
+    # Log the request details
+    current_time = datetime.datetime.now()
+    ip_address = request.remote_addr
+    app.logger.info(f"Timestamp: {current_time}, IP: {ip_address}")
+
     return jsonify({"status": "healthy"}), 200
