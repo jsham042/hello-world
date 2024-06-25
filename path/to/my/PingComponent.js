@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const PingComponent = () => {
-  const [pingResult, setPingResult] = useState('Pinging...');
+  const [pingResult, setPingResult] = useState('');
 
-  useEffect(() => {
-    const pingServer = async () => {
-      try {
-        const response = await fetch('https://api.example.com/ping');
-        const data = await response.json();
-        setPingResult(data.message);
-      } catch (error) {
-        setPingResult('Failed to ping server.');
-      }
-    };
-
-    pingServer();
-  }, []);
+  const pingServer = async () => {
+    try {
+      const response = await fetch('/api/ping');
+      const data = await response.json();
+      setPingResult(data.message);
+    } catch (error) {
+      setPingResult('Error: Could not reach server.');
+    }
+  };
 
   return (
     <div>
       <h1>Server Ping Test</h1>
+      <button onClick={pingServer}>Ping Server</button>
       <p>Result: {pingResult}</p>
     </div>
   );
