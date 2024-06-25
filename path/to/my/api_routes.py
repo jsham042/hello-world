@@ -3,7 +3,7 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-@app.route("/api/ping")
+@app.route("/api/ping", methods=["GET"])
 def ping():
     return jsonify({"message": "pong"}), 200
 
