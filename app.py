@@ -15,11 +15,11 @@ def hello_world():
 
 @app.route("/api/ping", methods=["GET"])
 def ping():
-    # Log the request with timestamp
-    logging.info(f"Request to /api/ping at {datetime.now().isoformat()}")
+    start_time = datetime.now()
+    logging.info(f"Request to /api/ping at {start_time.isoformat()}")
     response = jsonify({"status": "healthy"})
-    # Log the response status
+    response_time = datetime.now()
     logging.info(
-        f"Response status: {response.status_code} at {datetime.now().isoformat()}"
+        f"Response status: {response.status_code} at {response_time.isoformat()}"
     )
     return response, 200
