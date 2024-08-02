@@ -1,6 +1,12 @@
 from flask import Flask
+from routes.ping import ping
+
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    return "Hello, World!"
+
+
+app.add_url_rule("/ping", view_func=ping, methods=["GET"])
