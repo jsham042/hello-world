@@ -1,4 +1,6 @@
 from flask import Flask, jsonify
+import time
+import logging
 
 app = Flask(__name__)
 
@@ -10,4 +12,13 @@ def hello_world():
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return jsonify({"status": "healthy"}), 200
+    start_time = time.time()
+    response = jsonify({"status": "healthy"}), 200
+    elapsed_time = (time.time() - start_time) * 1000  # Convert to milliseconds
+
+    if elapsed_time > 500:
+        logging.error(
+            f"Performance issue: ping response time exceeded 500ms, actual time {elapsed_time:.2f}ms"
+        )
+
+    return response
