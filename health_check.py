@@ -1,11 +1,24 @@
 import requests
 import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
+import time
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
+
+def send_health_check_request():
+    url = "https://api.example.com/health-check"
+    try:
+        start_time = time.time()
+        response = requests.get(url)
+        response_time = time.time() - start_time
+        return response_time, response.status_code
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Request failed with exception: {e}")
+        return None, None
 
 
 def health_check():
