@@ -2,6 +2,7 @@ import requests
 import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 import time
+import schedule
 
 # Configure logging
 logging.basicConfig(
@@ -50,6 +51,13 @@ def health_check():
         logging.error(f"Health check failed with exception: {e}")
 
 
+def schedule_health_checks():
+    schedule.every(5).minutes.do(send_health_check_request)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 # Scheduler configuration
 scheduler = BlockingScheduler()
 scheduler.add_job(health_check, "interval", minutes=5)
@@ -57,3 +65,4 @@ scheduler.add_job(health_check, "interval", minutes=5)
 if __name__ == "__main__":
     logging.info("Starting health check scheduler.")
     scheduler.start()
+    schedule_health_checks()
