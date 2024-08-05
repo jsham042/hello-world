@@ -26,11 +26,21 @@ def send_health_check_request():
         return None, None
 
 
+def check_response(response):
+    try:
+        data = response.json()
+        if response.status_code == 200 and data.get("status") == "ok":
+            return True
+    except ValueError:
+        logging.error("Invalid JSON response")
+    return False
+
+
 def health_check():
     url = "http://example.com/api/health"
     try:
         response = requests.get(url)
-        if response.status_code == 200:
+        if check_response(response):
             logging.info(f"Health check successful: {response.text}")
         else:
             logging.error(
