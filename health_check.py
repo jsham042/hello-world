@@ -9,12 +9,17 @@ logging.basicConfig(
 )
 
 
+def log_response(response_time, status_code):
+    logging.info(f"Response time: {response_time} seconds, Status code: {status_code}")
+
+
 def send_health_check_request():
     url = "https://api.example.com/health-check"
     try:
         start_time = time.time()
         response = requests.get(url)
         response_time = time.time() - start_time
+        log_response(response_time, response.status_code)
         return response_time, response.status_code
     except requests.exceptions.RequestException as e:
         logging.error(f"Request failed with exception: {e}")
