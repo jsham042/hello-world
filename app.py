@@ -10,4 +10,5 @@ def hello_world():
 
 @app.route("/api/ping", methods=["GET"])
 def health_check():
+    app.logger.info("Accessed /api/ping endpoint")
     return jsonify({"status": "healthy"}), 200
