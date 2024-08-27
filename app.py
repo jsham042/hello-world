@@ -2,6 +2,9 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+# Set the timeout for the response
+app.config["RESPONSE_TIMEOUT"] = 300  # Timeout in milliseconds
+
 
 @app.route("/")
 def hello_world():
