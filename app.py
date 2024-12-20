@@ -20,3 +20,7 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/health')
+def health_check():
+    return jsonify({'status': 'healthy'})
