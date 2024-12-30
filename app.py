@@ -20,3 +20,11 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/ping/<name>')
+def ping_name(name):
+    return render_template('ping_name.html', name=name)
+
+@app.route('/api/ping/<name>')
+def api_ping_name(name):
+    return jsonify({'message': f'Ping, {name}!'})
