@@ -5,7 +5,7 @@ app = Flask(__name__)
 def hello_world():
     return render_template('hello.html')
 
-@app.route('/ping')
+@app.route('/ping') 
 def ping():
     return 'Ping!'
 
@@ -20,3 +20,7 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/health')
+def health():
+    return jsonify({'status': 'healthy'}), 200
