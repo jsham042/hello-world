@@ -20,3 +20,13 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+def divide_numbers(num1, num2):
+    if num2 == 0:
+        return 'Error: Division by zero'
+    return num1 / num2
+
+@app.route('/divide/<int:num1>/<int:num2>')
+def divide(num1, num2):
+    result = divide_numbers(num1, num2)
+    return str(result)
