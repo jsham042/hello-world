@@ -1,11 +1,11 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
 
-@app.route('/ping')
+@app.route('/ping') 
 def ping():
     return 'Ping!'
 
@@ -20,3 +20,13 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/subtract')
+def subtract_route():
+    a = float(request.args.get('a', 0))
+    b = float(request.args.get('b', 0))
+    result = subtract(a, b)
+    return str(result)
+
+def subtract(a, b):
+    return a - b
