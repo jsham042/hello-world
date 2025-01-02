@@ -9,7 +9,7 @@ def hello_world():
 def ping():
     return 'Ping!'
 
-@app.route('/pong')
+@app.route('/pong') 
 def pong():
     return 'pong'
 
@@ -20,3 +20,6 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+def subtract(num1, num2):
+    return num1 - num2
