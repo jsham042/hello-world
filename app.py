@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,3 +20,15 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/add')
+def add():
+    a = request.args.get('a', type=int)
+    b = request.args.get('b', type=int)
+    if a is None or b is None:
+        return "Please provide both 'a' and 'b' parameters as integers"
+    result = add_numbers(a, b)
+    return str(result)
+
+def add_numbers(a, b):
+    return a + b
