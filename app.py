@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -13,10 +13,20 @@ def ping():
 def pong():
     return 'pong'
 
-@app.route('/show_ping')
+@app.route('/show_ping') 
 def show_ping():
     return render_template('ping.html')
 
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+def add_numbers(a, b):
+    return a + b
+
+@app.route('/add')
+def add():
+    a = int(request.args.get('a', 0))
+    b = int(request.args.get('b', 0))
+    result = add_numbers(a, b)
+    return str(result)
