@@ -36,3 +36,11 @@ def add(a, b):
 
 def add_numbers(a, b):
     return a + b
+
+@app.route('/multiply/<int:a>/<int:b>')
+def multiply(a, b):
+    result = multiply_numbers(a, b)
+    return str(result)
+
+def multiply_numbers(a, b):
+    return a * b
