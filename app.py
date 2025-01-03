@@ -28,3 +28,11 @@ def subtract(a, b):
 
 def subtract_numbers(a, b):
     return a - b
+
+@app.route('/add/<int:a>/<int:b>')
+def add(a, b):
+    result = add_numbers(a, b)
+    return str(result)
+
+def add_numbers(a, b):
+    return a + b
