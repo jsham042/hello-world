@@ -44,3 +44,16 @@ def multiply(a, b):
 
 def multiply_numbers(a, b):
     return a * b
+
+@app.route('/divide/<int:a>/<int:b>')
+def divide(a, b):
+    try:
+        result = divide_numbers(a, b)
+        return str(result)
+    except ZeroDivisionError:
+        return 'Error: Division by zero is not allowed.'
+
+def divide_numbers(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero")
+    return a / b
