@@ -22,7 +22,6 @@ def show_ping():
 def api_ping():
     return jsonify({'message': 'Ping!'})
 
-@app.route('/api/random')
 @app.route('/api/random_number')
 def api_random_number():
     random_number = random.randint(1, 100)
