@@ -25,6 +25,6 @@ def api_ping():
 @app.route('/random')
 def random_number():
     min_val = request.args.get('min', default=1, type=int)
-    max_val = request.args.get('max', default=100, type=int)
+    max_val = request.args.get('max', default=1000, type=int)
     number = random.randint(min_val, max_val)
     return jsonify({'number': number})
