@@ -1,3 +1,4 @@
+import random
 from flask import Flask, render_template, jsonify
 app = Flask(__name__)
 
@@ -20,3 +21,8 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/random_number')
+def random_number():
+    number = random.randint(1, 100)
+    return jsonify({'random_number': number})
