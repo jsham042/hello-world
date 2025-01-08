@@ -24,5 +24,5 @@ def api_ping():
 
 @app.route('/api/random')
 def api_random():
-    number = random.randint(0, 100)
+    number = random.randint(1, 1000)
     return jsonify({'random_number': number})
