@@ -1,5 +1,16 @@
 from flask import Flask, render_template, jsonify, request
 import random
+
+import random
+
+class RandomNumber:
+    def __init__(self, min_value=1, max_value=100):
+        self.min_value = min_value
+        self.max_value = max_value
+    
+    def generate_random_number(self):
+        return random.randint(self.min_value, self.max_value)
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -26,4 +37,5 @@ def api_ping():
 def random_number():
     min_val = request.args.get('min', 1, type=int)
     max_val = request.args.get('max', 100, type=int)
-    return jsonify({'number': random.randint(min_val, max_val)})
+    random_generator = RandomNumber(min_val, max_val)
+    return jsonify({'number': random_generator.generate_random_number()})
