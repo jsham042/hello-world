@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Ping Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], 
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create New Ping</h1>
+    <form method="POST" action="/pings/new">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="host">Host:</label>
+            <input type="text" id="host" name="host" required>
+        </div>
+
+        <div class="form-group">
+            <label for="interval">Interval (seconds):</label>
+            <input type="number" id="interval" name="interval" min="1" value="60" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeout">Timeout (seconds):</label>
+            <input type="number" id="timeout" name="timeout" min="1" value="5" required>
+        </div>
+
+        <button type="submit">Create Ping</button>
+    </form>
+</body>
+</html>
