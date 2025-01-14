@@ -21,7 +21,7 @@ def show_ping():
 
 @app.route('/random')
 def random_number():
-    return str(random.randint(1, 1000))
+    return str(random.randint(1, 10000))
 
 @app.route('/api/ping')
 def api_ping():
