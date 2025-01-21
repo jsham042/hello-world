@@ -9,6 +9,11 @@ def hello_world():
 def ping():
     return 'Ping!'
 
+@app.route('/ping_new')
+def ping_new():
+    return 'New Ping!'
+
+
 @app.route('/pong')
 def pong():
     return 'pong'
