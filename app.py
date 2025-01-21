@@ -1,5 +1,8 @@
 from flask import Flask, render_template, jsonify
 import subprocess
+from ping3 import ping, PingError
+import socket
+import re
 app = Flask(__name__)
 
 @app.route('/')
@@ -25,7 +28,36 @@ def api_ping():
 @app.route('/ping/<target>')
 def ping_target(target):
     try:
-        output = subprocess.check_output(['ping', '-c', '1', target], text=True)
-        return output
-    except subprocess.CalledProcessError as e:
-        return f"Error pinging {target}: {str(e)}", 500
+        # Validate input
+        if not target or len(target) > 255:  # DNS names can't be longer than 255 characters
+            return jsonify({'error': 'Invalid hostname or IP address length'}), 400
+            
+        # Check if it's an IP address
+        try:
+            socket.inet_pton(socket.AF_INET, target)  # IPv4
+        except socket.error:
+            try:
+                socket.inet_pton(socket.AF_INET6, target)  # IPv6
+            except socket.error:
+                # Check if it's a valid hostname
+                if not re.match(r'^[a-zA-Z0-9-\.]+$', target):  # Basic hostname chars
+                    return jsonify({'error': 'Invalid hostname characters'}), 400
+                try:
+                    socket.gethostbyname(target)
+                except socket.gaierror:
+                    return jsonify({'error': 'Unable to resolve hostname'}), 400
+        
+        response_time = ping(target)
+        if response_time is None:
+            return jsonify({'error': f'Could not reach host {target}'}), 404
+        if response_time is False:
+            return jsonify({'error': f'Invalid hostname or IP address: {target}'}), 400
+            
+        return jsonify({
+            'target': target,
+            'response_time_ms': round(response_time * 1000, 2)
+        })
+    except PingError as e:
+        return jsonify({'error': f'Ping error: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
