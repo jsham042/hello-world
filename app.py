@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,3 +20,17 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/api/ping')
+def api_ping():
+    return jsonify({'message': 'Ping!'})
+
+@app.route('/multiply')
+def multiply():
+    try:
+        a = float(request.args.get('a', 0))
+        b = float(request.args.get('b', 0))
+        result = a * b
+        return str(result)
+    except ValueError:
+        return "Error: Please provide valid numbers"
