@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,3 +20,12 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/subtract')
+def subtract():
+    try:
+        a = int(request.args.get('a', 0))
+        b = int(request.args.get('b', 0))
+        return str(a - b)
+    except ValueError:
+        return "Error: Parameters must be integers"
