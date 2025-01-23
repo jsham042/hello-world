@@ -21,11 +21,16 @@ def show_ping():
 def api_ping():
     return jsonify({'message': 'Ping!'})
 
+
+def subtract_numbers(a, b):
+    """Return the difference between two numbers."""
+    return a - b
+
 @app.route('/subtract')
 def subtract():
     try:
         a = int(request.args.get('a', 0))
         b = int(request.args.get('b', 0))
-        return str(a - b)
+        return str(subtract_numbers(a, b))
     except ValueError:
         return "Error: Parameters must be integers"
