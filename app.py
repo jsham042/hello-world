@@ -1,4 +1,7 @@
 from flask import Flask, render_template, jsonify, request
+
+from math_utils import subtract_numbers
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,12 +23,6 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
-
-def subtract_numbers(a, b):
-    return a - b
-
-def subtract_numbers(a, b):
-    return a - b
 
 @app.route('/subtract')
 def subtract():
