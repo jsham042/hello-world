@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,3 +20,19 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+def subtract_numbers(a, b):
+    return a - b
+
+def subtract_numbers(a, b):
+    return a - b
+
+@app.route('/subtract')
+def subtract():
+    try:
+        a = float(request.args.get('a', 0))
+        b = float(request.args.get('b', 0))
+        result = subtract_numbers(a, b)
+        return str(result)
+    except ValueError:
+        return "Error: Invalid input - please provide numeric values", 400
