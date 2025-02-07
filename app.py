@@ -1,6 +1,9 @@
 from flask import Flask, render_template, jsonify
 app = Flask(__name__)
 
+def add_two_numbers(a, b):
+    return a + b
+
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
@@ -22,5 +25,5 @@ def api_ping():
     return jsonify({'message': 'Ping!'})
 
 @app.route('/add/<int:a>/<int:b>')
-def add_numbers(a, b):
-    return str(a + b)
+def add_numbers_route(a, b):
+    return str(add_two_numbers(a, b))
