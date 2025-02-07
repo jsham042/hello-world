@@ -20,3 +20,7 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/add/<int:a>/<int:b>')
+def add_numbers(a, b):
+    return str(a + b)
