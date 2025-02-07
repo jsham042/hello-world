@@ -23,3 +23,9 @@ def api_ping():
 
 def divide_numbers(numerator, denominator):
     return numerator / denominator
+
+def divide_numbers(numerator, denominator):
+    return numerator / denominator
+
+def multiply_numbers(factor1, factor2):
+    return factor1 * factor2
