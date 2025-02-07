@@ -20,3 +20,11 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+@app.route('/api/divide/<int:a>/<int:b>')
+def divide_numbers(a, b):
+    try:
+        result = a / b
+        return jsonify({'result': result})
+    except ZeroDivisionError:
+        return jsonify({'error': 'Division by zero is not allowed'}), 400
