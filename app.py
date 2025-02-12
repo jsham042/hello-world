@@ -20,3 +20,6 @@ def show_ping():
 @app.route('/api/ping')
 def api_ping():
     return jsonify({'message': 'Ping!'})
+
+def subtract_numbers(a, b):
+    return a - b
