@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend App</title>
+</head>
+<body>
+    <div id="message">Loading...</div>
+    <script src="path/to/my/frontend/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/hello-world')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('message').textContent = data;
+                })
+                .catch(error => console.error('Error fetching the message:', error));
+        });
+    </script>
+</body>
+</html>
